@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Plano de Treino e Dieta Semanal</title>
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .week-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .day-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .day-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .exercise-list, .diet-list, .tips-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .exercise-item, .diet-item, .tip-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .exercise-item:hover, .diet-item:hover, .tip-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .exercise-checkbox, .diet-checkbox, .tip-checkbox {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .exercise-name, .diet-meal, .tip-text {
+            flex-grow: 1;
+        }
+        
+        .exercise-sets, .diet-time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .completed {
+            text-decoration: line-through;
+            color: #95a5a6;
+            background-color: #e8f8f5;
+        }
+        
+        .reset-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .section-title {
+            color: var(--dark-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+        
+        .diet-category {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .day-card {
+                width: 100%;
+            }
+            
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Meu Plano de Treino e Dieta Semanal</h1>
+    
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="workout">Treino</button>
+        <button class="tab-btn" data-tab="diet">Dieta</button>
+        <button class="tab-btn" data-tab="tips">Dicas Extras</button>
+    </div>
+    
+    <div id="workout" class="tab-content active">
+        <div class="week-container" id="weekContainer">
+            <!-- Os dias da semana serão inseridos aqui pelo JavaScript -->
+        </div>
+        <button class="reset-btn" id="resetWorkoutBtn">Reiniciar Semana de Treino</button>
+    </div>
+    
+    <div id="diet" class="tab-content">
+        <div class="week-container" id="dietContainer">
+            <!-- Plano alimentar será inserido aqui pelo JavaScript -->
+        </div>
+        <button class="reset-btn" id="resetDietBtn">Reiniciar Semana de Dieta</button>
+    </div>
+    
+    <div id="tips" class="tab-content">
+        <div class="week-container" id="tipsContainer">
+            <!-- Dicas extras serão inseridas aqui pelo JavaScript -->
+        </div>
+        <button class="reset-btn" id="resetTipsBtn">Reiniciar Dicas</button>
+    </div>
+    
+    <script>
+        // Dados do plano de treino
+        const workoutPlan = [
+            {
+                day: "Segunda-feira",
+                focus: "Peito + Tríceps + Cardio",
+                exercises: [
+                    { name: "Supino reto (barra ou halteres)", sets: "4x12" },
+                    { name: "Flexões (com variações)", sets: "3x15-20" },
+                    { name: "Crucifixo (máquina ou halteres)", sets: "3x12" },
+                    { name: "Mergulho (tríceps no banco ou paralelas)", sets: "3x12" },
+                    { name: "Tríceps corda (polia alta)", sets: "3x12" },
+                    { name: "Cardio: 20 min esteira inclinada ou bicicleta", sets: "" }
+                ]
+            },
+            {
+                day: "Terça-feira",
+                focus: "Pernas + HIIT",
+                exercises: [
+                    { name: "Agachamento livre", sets: "4x12" },
+                    { name: "Leg press", sets: "3x12" },
+                    { name: "Stiff (terra romeno)", sets: "3x12" },
+                    { name: "Cadeira extensora", sets: "3x12" },
+                    { name: "Panturrilha em pé", sets: "4x15" },
+                    { name: "HIIT: 30s tiro / 30s descanso (8 rounds)", sets: "" }
+                ]
+            },
+            {
+                day: "Quarta-feira",
+                focus: "Costas + Bíceps + Cardio",
+                exercises: [
+                    { name: "Barra fixa (ou pulley alto)", sets: "4x10" },
+                    { name: "Remada curvada", sets: "3x12" },
+                    { name: "Pulley frente", sets: "3x12" },
+                    { name: "Rosca direta (barra W)", sets: "3x12" },
+                    { name: "Rosca martelo", sets: "3x12" },
+                    { name: "Cardio: 20 min remador ou elíptico", sets: "" }
+                ]
+            },
+            {
+                day: "Quinta-feira",
+                focus: "HIIT + Abdômen",
+                exercises: [
+                    { name: "HIIT: 40s corrida / 20s descanso (10-15 rounds)", sets: "" },
+                    { name: "Prancha", sets: "3x1 min" },
+                    { name: "Abdominal supra", sets: "3x20" },
+                    { name: "Elevação de pernas", sets: "3x15" }
+                ]
+            },
+            {
+                day: "Sexta-feira",
+                focus: "Ombros + Trapézio + Cardio",
+                exercises: [
+                    { name: "Desenvolvimento militar (halteres)", sets: "4x12" },
+                    { name: "Elevação lateral", sets: "3x12" },
+                    { name: "Remada alta", sets: "3x12" },
+                    { name: "Encolhimento de ombros (halteres)", sets: "3x15" },
+                    { name: "Cardio: 15 min escada ou bike", sets: "" }
+                ]
+            },
+            {
+                day: "Sábado",
+                focus: "Treino Completo (Full Body) + Cardio",
+                exercises: [
+                    { name: "Burpees", sets: "3x15" },
+                    { name: "Kettlebell swing", sets: "3x20" },
+                    { name: "Agachamento com salto", sets: "3x12" },
+                    { name: "Flexões explosivas", sets: "3x12" },
+                    { name: "Cardio: 20 min natação ou corrida leve", sets: "" }
+                ]
+            },
+            {
+                day: "Domingo",
+                focus: "Descanso ou Mobilidade",
+                exercises: [
+                    { name: "Alongamento ou yoga", sets: "" },
+                    { name: "Caminhada leve", sets: "" }
+                ]
+            }
+        ];
+
+        // Dados do plano de dieta
+        const dietPlan = {
+            "Café da Manhã": [
+                { meal: "Omelete com 3 claras + 1 gema + espinafre", time: "07:00" },
+                { meal: "1 fatia de pão integral", time: "" },
+                { meal: "Café preto (sem açúcar)", time: "" }
+            ],
+            "Lanche da Manhã": [
+                { meal: "Whey protein com água ou leite desnatado", time: "10:00" }
+            ],
+            "Almoço": [
+                { meal: "150g de frango grelhado", time: "12:30" },
+                { meal: "1 concha de feijão ou lentilha", time: "" },
+                { meal: "Brócolis e abobrinha no vapor", time: "" },
+                { meal: "1 colher de azeite", time: "" }
+            ],
+            "Lanche da Tarde": [
+                { meal: "Mix de castanhas (30g)", time: "16:00" },
+                { meal: "Iogurte natural + 1 colher de chia", time: "" }
+            ],
+            "Jantar": [
+                { meal: "150g de peixe (salmão, tilápia)", time: "19:30" },
+                { meal: "Purê de batata-doce", time: "" },
+                { meal: "Salada verde (alface, tomate, pepino)", time: "" }
+            ],
+            "Ceia (opcional)": [
+                { meal: "Chá de camomila ou erva-doce", time: "21:30" }
+            ]
+        };
+
+        // Dicas extras
+        const extraTips = [
+            { tip: "Beba 3L de água por dia (ajuda no metabolismo)" },
+            { tip: "Durma 7–8h (sono ruim aumenta gordura)" },
+            { tip: "Mantenha o déficit calórico (use apps como MyFitnessPal)" },
+            { tip: "Evite açúcar, refrigerante e álcool" },
+            { tip: "Controle o consumo de sal (reduz retenção líquida)" },
+            { tip: "Faça exames hormonais se necessário (testosterona/estrogênio)" },
+            { tip: "Mantenha consistência - resultados levam tempo" }
+        ];
+
+        // Função para renderizar os dias de treino
+        function renderWorkoutDays() {
+            const weekContainer = document.getElementById('weekContainer');
+            weekContainer.innerHTML = '';
+
+            workoutPlan.forEach(dayPlan => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                const dayTitle = document.createElement('h2');
+                dayTitle.className = 'day-title';
+                dayTitle.textContent = dayPlan.day;
+                
+                const focusPara = document.createElement('p');
+                focusPara.textContent = `Foco: ${dayPlan.focus}`;
+                focusPara.style.fontWeight = 'bold';
+                focusPara.style.marginBottom = '15px';
+                
+                const exerciseList = document.createElement('ul');
+                exerciseList.className = 'exercise-list';
+                
+                dayPlan.exercises.forEach((exercise, index) => {
+                    const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${index}`;
+                    const isCompleted = localStorage.getItem(exerciseId) === 'true';
+                    
+                    const exerciseItem = document.createElement('li');
+                    exerciseItem.className = `exercise-item ${isCompleted ? 'completed' : ''}`;
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'exercise-checkbox';
+                    checkbox.id = exerciseId;
+                    checkbox.checked = isCompleted;
+                    
+                    checkbox.addEventListener('change', function() {
+                        localStorage.setItem(exerciseId, this.checked);
+                        exerciseItem.classList.toggle('completed', this.checked);
+                    });
+                    
+                    const exerciseName = document.createElement('span');
+                    exerciseName.className = 'exercise-name';
+                    exerciseName.textContent = exercise.name;
+                    
+                    const exerciseSets = document.createElement('span');
+                    exerciseSets.className = 'exercise-sets';
+                    exerciseSets.textContent = exercise.sets;
+                    
+                    exerciseItem.appendChild(checkbox);
+                    exerciseItem.appendChild(exerciseName);
+                    exerciseItem.appendChild(exerciseSets);
+                    exerciseList.appendChild(exerciseItem);
+                });
+                
+                dayCard.appendChild(dayTitle);
+                dayCard.appendChild(focusPara);
+                dayCard.appendChild(exerciseList);
+                weekContainer.appendChild(dayCard);
+            });
+        }
+
+        // Função para renderizar o plano de dieta
+        function renderDietPlan() {
+            const dietContainer = document.getElementById('dietContainer');
+            dietContainer.innerHTML = '';
+
+            const dietCard = document.createElement('div');
+            dietCard.className = 'day-card';
+            dietCard.style.maxWidth = '800px';
+            dietCard.style.margin = '0 auto';
+            
+            const dietTitle = document.createElement('h2');
+            dietTitle.className = 'day-title';
+            dietTitle.textContent = "Plano Alimentar Semanal";
+            dietCard.appendChild(dietTitle);
+            
+            for (const [category, meals] of Object.entries(dietPlan)) {
+                const categoryTitle = document.createElement('h3');
+                categoryTitle.className = 'diet-category';
+                categoryTitle.textContent = category;
+                dietCard.appendChild(categoryTitle);
+                
+                const mealList = document.createElement('ul');
+                mealList.className = 'diet-list';
+                
+                meals.forEach((meal, index) => {
+                    const mealId = `diet-${category.replace(/\s+/g, '-').toLowerCase()}-meal-${index}`;
+                    const isCompleted = localStorage.getItem(mealId) === 'true';
+                    
+                    const mealItem = document.createElement('li');
+                    mealItem.className = `diet-item ${isCompleted ? 'completed' : ''}`;
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'diet-checkbox';
+                    checkbox.id = mealId;
+                    checkbox.checked = isCompleted;
+                    
+                    checkbox.addEventListener('change', function() {
+                        localStorage.setItem(mealId, this.checked);
+                        mealItem.classList.toggle('completed', this.checked);
+                    });
+                    
+                    const mealName = document.createElement('span');
+                    mealName.className = 'diet-meal';
+                    mealName.textContent = meal.meal;
+                    
+                    const mealTime = document.createElement('span');
+                    mealTime.className = 'diet-time';
+                    mealTime.textContent = meal.time;
+                    
+                    mealItem.appendChild(checkbox);
+                    mealItem.appendChild(mealName);
+                    mealItem.appendChild(mealTime);
+                    mealList.appendChild(mealItem);
+                });
+                
+                dietCard.appendChild(mealList);
+            }
+            
+            dietContainer.appendChild(dietCard);
+        }
+
+        // Função para renderizar as dicas extras
+        function renderExtraTips() {
+            const tipsContainer = document.getElementById('tipsContainer');
+            tipsContainer.innerHTML = '';
+
+            const tipsCard = document.createElement('div');
+            tipsCard.className = 'day-card';
+            tipsCard.style.maxWidth = '800px';
+            tipsCard.style.margin = '0 auto';
+            
+            const tipsTitle = document.createElement('h2');
+            tipsTitle.className = 'day-title';
+            tipsTitle.textContent = "Dicas Extras para Resultados Rápidos";
+            tipsCard.appendChild(tipsTitle);
+            
+            const tipsList = document.createElement('ul');
+            tipsList.className = 'tips-list';
+            
+            extraTips.forEach((tip, index) => {
+                const tipId = `tip-${index}`;
+                const isCompleted = localStorage.getItem(tipId) === 'true';
+                
+                const tipItem = document.createElement('li');
+                tipItem.className = `tip-item ${isCompleted ? 'completed' : ''}`;
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'tip-checkbox';
+                checkbox.id = tipId;
+                checkbox.checked = isCompleted;
+                
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(tipId, this.checked);
+                    tipItem.classList.toggle('completed', this.checked);
+                });
+                
+                const tipText = document.createElement('span');
+                tipText.className = 'tip-text';
+                tipText.textContent = tip.tip;
+                
+                tipItem.appendChild(checkbox);
+                tipItem.appendChild(tipText);
+                tipsList.appendChild(tipItem);
+            });
+            
+            tipsCard.appendChild(tipsList);
+            tipsContainer.appendChild(tipsCard);
+        }
+
+        // Funções para resetar
+        function resetWorkout() {
+            workoutPlan.forEach(dayPlan => {
+                dayPlan.exercises.forEach((exercise, index) => {
+                    const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${index}`;
+                    localStorage.removeItem(exerciseId);
+                });
+            });
+            renderWorkoutDays();
+        }
+
+        function resetDiet() {
+            for (const [category, meals] of Object.entries(dietPlan)) {
+                meals.forEach((meal, index) => {
+                    const mealId = `diet-${category.replace(/\s+/g, '-').toLowerCase()}-meal-${index}`;
+                    localStorage.removeItem(mealId);
+                });
+            }
+            renderDietPlan();
+        }
+
+        function resetTips() {
+            extraTips.forEach((tip, index) => {
+                const tipId = `tip-${index}`;
+                localStorage.removeItem(tipId);
+            });
+            renderExtraTips();
+        }
+
+        // Sistema de abas
+        function setupTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    btn.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+
+        // Event listeners
+        document.getElementById('resetWorkoutBtn').addEventListener('click', resetWorkout);
+        document.getElementById('resetDietBtn').addEventListener('click', resetDiet);
+        document.getElementById('resetTipsBtn').addEventListener('click', resetTips);
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            renderWorkoutDays();
+            renderDietPlan();
+            renderExtraTips();
+            setupTabs();
+        });
+    </script>
+</body>
+</html>
