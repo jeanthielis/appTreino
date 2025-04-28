@@ -132,6 +132,24 @@
             margin-top: 30px;
         }
         
+        .video-btn {
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        
+        .exercise-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .exercise-name {
+            margin-right: 10px;
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding-top: 200px; /* Mais espaço para mobile */
@@ -144,6 +162,22 @@
             
             .fixed-header {
                 padding: 10px 0;
+            }
+            
+            .list-group-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .exercise-content {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .video-btn {
+                margin-left: 0;
+                margin-top: 5px;
+                align-self: flex-end;
             }
         }
     </style>
@@ -162,8 +196,6 @@
                     <div id="progressText" class="progress-text">0% Completo</div>
                 </div>
             </div>
-          
-         <br>
             
             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -180,8 +212,6 @@
     </div>
     
     <!-- Conteúdo Principal -->
-  <br>
-  <br>
     <div class="container">
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="workout" role="tabpanel">
@@ -226,82 +256,82 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Dados do plano de treino
+        // Dados do plano de treino com links para vídeos
         const workoutPlan = [
             {
                 day: "Segunda-feira",
                 focus: "Peito + Tríceps + Cardio",
                 exercises: [
-                    { name: "Supino reto (barra ou halteres)", sets: "4x12" },
-                    { name: "Flexões (com variações)", sets: "3x15-20" },
-                    { name: "Crucifixo (máquina ou halteres)", sets: "3x12" },
-                    { name: "Mergulho (tríceps no banco ou paralelas)", sets: "3x12" },
-                    { name: "Tríceps corda (polia alta)", sets: "3x12" },
-                    { name: "Cardio: 20 min esteira inclinada ou bicicleta", sets: "" }
+                    { name: "Supino reto (barra ou halteres)", sets: "4x12", video: "https://www.youtube.com/watch?v=SCVCLChPQFY" },
+                    { name: "Flexões (com variações)", sets: "3x15-20", video: "https://www.youtube.com/watch?v=Eh00_rniF8E" },
+                    { name: "Crucifixo (máquina ou halteres)", sets: "3x12", video: "https://www.youtube.com/watch?v=Q3EM5vgvV3Q" },
+                    { name: "Mergulho (tríceps no banco ou paralelas)", sets: "3x12", video: "https://www.youtube.com/watch?v=6kALZikXxLc" },
+                    { name: "Tríceps corda (polia alta)", sets: "3x12", video: "https://www.youtube.com/watch?v=6kALZikXxLc" },
+                    { name: "Cardio: 20 min esteira inclinada ou bicicleta", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
                 ]
             },
             {
                 day: "Terça-feira",
                 focus: "Pernas + HIIT",
                 exercises: [
-                    { name: "Agachamento livre", sets: "4x12" },
-                    { name: "Leg press", sets: "3x12" },
-                    { name: "Stiff (terra romeno)", sets: "3x12" },
-                    { name: "Cadeira extensora", sets: "3x12" },
-                    { name: "Panturrilha em pé", sets: "4x15" },
-                    { name: "HIIT: 30s tiro / 30s descanso (8 rounds)", sets: "" }
+                    { name: "Agachamento livre", sets: "4x12", video: "https://www.youtube.com/watch?v=aclHkVaku9U" },
+                    { name: "Leg press", sets: "3x12", video: "https://www.youtube.com/watch?v=IZxyjW7MPJQ" },
+                    { name: "Stiff (terra romeno)", sets: "3x12", video: "https://www.youtube.com/watch?v=1uDiW5--rAE" },
+                    { name: "Cadeira extensora", sets: "3x12", video: "https://www.youtube.com/watch?v=YyvSfVjQeL0" },
+                    { name: "Panturrilha em pé", sets: "4x15", video: "https://www.youtube.com/watch?v=JbyjNymZOt0" },
+                    { name: "HIIT: 30s tiro / 30s descanso (8 rounds)", sets: "", video: "https://www.youtube.com/watch?v=ml6cT4AZdqI" }
                 ]
             },
             {
                 day: "Quarta-feira",
                 focus: "Costas + Bíceps + Cardio",
                 exercises: [
-                    { name: "Barra fixa (ou pulley alto)", sets: "4x10" },
-                    { name: "Remada curvada", sets: "3x12" },
-                    { name: "Pulley frente", sets: "3x12" },
-                    { name: "Rosca direta (barra W)", sets: "3x12" },
-                    { name: "Rosca martelo", sets: "3x12" },
-                    { name: "Cardio: 20 min remador ou elíptico", sets: "" }
+                    { name: "Barra fixa (ou pulley alto)", sets: "4x10", video: "https://www.youtube.com/watch?v=eGo4IYlbE5g" },
+                    { name: "Remada curvada", sets: "3x12", video: "https://www.youtube.com/watch?v=roCP6wCXPqo" },
+                    { name: "Pulley frente", sets: "3x12", video: "https://www.youtube.com/watch?v=CAwf7n6Luuc" },
+                    { name: "Rosca direta (barra W)", sets: "3x12", video: "https://www.youtube.com/watch?v=kwG2ipFRgfo" },
+                    { name: "Rosca martelo", sets: "3x12", video: "https://www.youtube.com/watch?v=TwD-YGVP4Bk" },
+                    { name: "Cardio: 20 min remador ou elíptico", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
                 ]
             },
             {
                 day: "Quinta-feira",
                 focus: "HIIT + Abdômen",
                 exercises: [
-                    { name: "HIIT: 40s corrida / 20s descanso (10-15 rounds)", sets: "" },
-                    { name: "Prancha", sets: "3x1 min" },
-                    { name: "Abdominal supra", sets: "3x20" },
-                    { name: "Elevação de pernas", sets: "3x15" }
+                    { name: "HIIT: 40s corrida / 20s descanso (10-15 rounds)", sets: "", video: "https://www.youtube.com/watch?v=ml6cT4AZdqI" },
+                    { name: "Prancha", sets: "3x1 min", video: "https://www.youtube.com/watch?v=B296mZDhrP4" },
+                    { name: "Abdominal supra", sets: "3x20", video: "https://www.youtube.com/watch?v=MKmrqcoCZ-M" },
+                    { name: "Elevação de pernas", sets: "3x15", video: "https://www.youtube.com/watch?v=JB2oyawG9KI" }
                 ]
             },
             {
                 day: "Sexta-feira",
                 focus: "Ombros + Trapézio + Cardio",
                 exercises: [
-                    { name: "Desenvolvimento militar (halteres)", sets: "4x12" },
-                    { name: "Elevação lateral", sets: "3x12" },
-                    { name: "Remada alta", sets: "3x12" },
-                    { name: "Encolhimento de ombros (halteres)", sets: "3x15" },
-                    { name: "Cardio: 15 min escada ou bike", sets: "" }
+                    { name: "Desenvolvimento militar (halteres)", sets: "4x12", video: "https://www.youtube.com/watch?v=qEwKCR5JCog" },
+                    { name: "Elevação lateral", sets: "3x12", video: "https://www.youtube.com/watch?v=3VcKaXpzqRo" },
+                    { name: "Remada alta", sets: "3x12", video: "https://www.youtube.com/watch?v=ca1cK9bAVC4" },
+                    { name: "Encolhimento de ombros (halteres)", sets: "3x15", video: "https://www.youtube.com/watch?v=v_N0TkGJgN0" },
+                    { name: "Cardio: 15 min escada ou bike", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
                 ]
             },
             {
                 day: "Sábado",
                 focus: "Treino Completo (Full Body) + Cardio",
                 exercises: [
-                    { name: "Burpees", sets: "3x15" },
-                    { name: "Kettlebell swing", sets: "3x20" },
-                    { name: "Agachamento com salto", sets: "3x12" },
-                    { name: "Flexões explosivas", sets: "3x12" },
-                    { name: "Cardio: 20 min natação ou corrida leve", sets: "" }
+                    { name: "Burpees", sets: "3x15", video: "https://www.youtube.com/watch?v=dZgVxmf6jkA" },
+                    { name: "Kettlebell swing", sets: "3x20", video: "https://www.youtube.com/watch?v=mKDIuUbH94Q" },
+                    { name: "Agachamento com salto", sets: "3x12", video: "https://www.youtube.com/watch?v=CVaEhXotL7M" },
+                    { name: "Flexões explosivas", sets: "3x12", video: "https://www.youtube.com/watch?v=Eh00_rniF8E" },
+                    { name: "Cardio: 20 min natação ou corrida leve", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
                 ]
             },
             {
                 day: "Domingo",
                 focus: "Descanso ou Mobilidade",
                 exercises: [
-                    { name: "Alongamento ou yoga", sets: "" },
-                    { name: "Caminhada leve", sets: "" }
+                    { name: "Alongamento ou yoga", sets: "", video: "https://www.youtube.com/watch?v=oX6I6vs1EFs" },
+                    { name: "Caminhada leve", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
                 ]
             }
         ];
@@ -406,8 +436,13 @@
                     const exerciseItem = $(`
                         <li class="list-group-item ${isCompleted ? 'completed' : ''}">
                             <input class="form-check-input exercise-checkbox" type="checkbox" id="${exerciseId}" ${isCompleted ? 'checked' : ''}>
-                            <span class="exercise-name">${exercise.name}</span>
-                            <span class="exercise-sets">${exercise.sets}</span>
+                            <div class="exercise-content">
+                                <span class="exercise-name">${exercise.name}</span>
+                                <span class="exercise-sets">${exercise.sets}</span>
+                            </div>
+                            <a href="${exercise.video}" target="_blank" class="btn btn-sm btn-outline-primary video-btn" title="Ver demonstração">
+                                <i class="fas fa-play me-1"></i>Vídeo
+                            </a>
                         </li>
                     `);
                     
