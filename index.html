@@ -21,7 +21,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
-            padding-top: 160px; /* Espaço para o cabeçalho fixo */
+            padding-top: 160px;
         }
         
         .fixed-header {
@@ -97,6 +97,8 @@
             display: flex;
             align-items: center;
             padding: 12px 15px;
+            position: relative;
+            flex-wrap: wrap;
         }
         
         .list-group-item:hover {
@@ -137,6 +139,7 @@
             font-size: 0.8rem;
             margin-left: 10px;
             white-space: nowrap;
+            position: relative;
         }
         
         .exercise-content {
@@ -150,9 +153,67 @@
             margin-right: 10px;
         }
         
+        .video-thumbnail {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            width: 280px;
+            height: 158px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+            display: none;
+            border: 3px solid white;
+        }
+        
+        .video-btn:hover .video-thumbnail {
+            display: block;
+        }
+        
+        .video-btn-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .weight-input {
+            width: 70px;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 2px 5px;
+            font-size: 0.9rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        
+        .weight-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-left: 10px;
+        }
+        
+        .exercise-details {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 768px) {
             body {
-                padding-top: 200px; /* Mais espaço para mobile */
+                padding-top: 200px;
             }
             
             .nav-tabs .nav-link {
@@ -179,6 +240,23 @@
                 margin-top: 5px;
                 align-self: flex-end;
             }
+            
+            .video-thumbnail {
+                width: 200px;
+                height: 113px;
+                right: auto;
+                left: 0;
+            }
+            
+            .exercise-details {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .weight-input {
+                margin-left: 0;
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
@@ -196,8 +274,6 @@
                     <div id="progressText" class="progress-text">0% Completo</div>
                 </div>
             </div>
-<br>
-<br>
             
             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -258,6 +334,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Função para extrair ID do vídeo do YouTube
+        function getYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
         // Dados do plano de treino com links para vídeos
         const workoutPlan = [
             {
@@ -433,7 +516,11 @@
                 
                 $.each(dayPlan.exercises, function(exIndex, exercise) {
                     const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
+                    const weightId = `weight-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
                     const isCompleted = localStorage.getItem(exerciseId) === 'true';
+                    const savedWeight = localStorage.getItem(weightId) || '';
+                    const videoId = getYouTubeId(exercise.video);
+                    const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
                     
                     const exerciseItem = $(`
                         <li class="list-group-item ${isCompleted ? 'completed' : ''}">
@@ -442,16 +529,29 @@
                                 <span class="exercise-name">${exercise.name}</span>
                                 <span class="exercise-sets">${exercise.sets}</span>
                             </div>
-                            <a href="${exercise.video}" target="_blank" class="btn btn-sm btn-outline-primary video-btn" title="Ver demonstração">
-                                <i class="fas fa-play me-1"></i>Vídeo
-                            </a>
+                            <div class="video-btn-container">
+                                <a href="${exercise.video}" target="_blank" class="btn btn-sm btn-outline-primary video-btn" title="Ver demonstração">
+                                    <i class="fas fa-play me-1"></i>Vídeo
+                                    <div class="video-thumbnail" style="background-image: url('${thumbnailUrl}')">
+                                        <div class="play-icon"><i class="fas fa-play-circle"></i></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="exercise-details">
+                                <span class="weight-label">Peso (kg):</span>
+                                <input type="number" class="weight-input" id="${weightId}" value="${savedWeight}" placeholder="0.0" step="0.5" min="0">
+                            </div>
                         </li>
                     `);
                     
-                    exerciseItem.find('input').on('change', function() {
+                    exerciseItem.find('input[type="checkbox"]').on('change', function() {
                         localStorage.setItem(exerciseId, this.checked);
                         $(this).closest('li').toggleClass('completed', this.checked);
                         updateProgress();
+                    });
+                    
+                    exerciseItem.find('.weight-input').on('change', function() {
+                        localStorage.setItem(weightId, this.value);
                     });
                     
                     exerciseList.append(exerciseItem);
@@ -548,7 +648,9 @@
             $.each(workoutPlan, function(index, dayPlan) {
                 $.each(dayPlan.exercises, function(exIndex, exercise) {
                     const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
+                    const weightId = `weight-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
                     localStorage.removeItem(exerciseId);
+                    localStorage.removeItem(weightId);
                 });
             });
             renderWorkoutDays();
