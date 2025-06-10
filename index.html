@@ -224,20 +224,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#home"><i class="fas fa-home me-1"></i> Início</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#training"><i class="fas fa-dumbbell me-1"></i> Treino</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#diet"><i class="fas fa-utensils me-1"></i> Dieta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#supplements"><i class="fas fa-pills me-1"></i> Suplementos</a>
-                    </li>
-                    <li class="nav-item position-relative">
-                        <a class="nav-link" href="#reminders"><i class="fas fa-bell me-1"></i> Lembretes
-                            <span class="notification-badge">3</span>
-                        </a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -254,7 +241,8 @@
                 <div class="progress mb-3" style="height: 25px;">
                     <div class="progress-bar" role="progressbar" style="width: 25%;" id="weeklyProgress">25%</div>
                 </div>
-                <p class="text-muted mb-3">Você completou 2 de 8 treinos esta semana</p>
+                <p id="progress"></p>
+
                 <div class="d-flex justify-content-between">
                     <button class="btn btn-outline-primary btn-sm" id="resetProgress">
                         <i class="fas fa-sync-alt me-1"></i>Reiniciar Progresso
@@ -293,247 +281,627 @@
         <!-- Tabs Content -->
         <div class="tab-content" id="pills-tabContent">
             <!-- Training Tab -->
-            <div class="tab-pane fade show active" id="pills-training" role="tabpanel">
-                <h4 class="mb-4"><i class="fas fa-dumbbell me-2"></i>Programa de Treino para Definição Peitoral</h4>
-                
-                <div class="alert alert-info mb-4">
-                    <i class="fas fa-info-circle me-2"></i>Este programa combina hipertrofia e cardio para máxima definição muscular.
-                </div>
-                
-                <div class="accordion" id="trainingAccordion">
-                    <!-- Day 1 -->
-                    <div class="accordion-item mb-3 border-0">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day1">
-                                <i class="fas fa-calendar-day me-2"></i>Dia 1: Peito e Tríceps (Intenso)
-                            </button>
-                        </h2>
-                        <div id="day1" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
-                            <div class="accordion-body">
-                                <div class="alert alert-warning">
-                                    <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 45-60 segundos
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="supino-reto">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Supino Reto com Barra</h5>
-                                                    <p class="card-text text-muted">4 séries x 8-12 reps</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção média do peitoral</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="supino-reto">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="supino-inclinado">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Supino Inclinado Halteres</h5>
-                                                    <p class="card-text text-muted">3 séries x 10-12 reps</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção superior do peitoral</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="supino-inclinado">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="crucifixo">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Crucifixo no Cross Over</h5>
-                                                    <p class="card-text text-muted">3 séries x 12-15 reps</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Alongamento e definição</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="crucifixo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="triceps-pulley">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Tríceps Pulley Corda</h5>
-                                                    <p class="card-text text-muted">4 séries x 12 reps</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Cabeça lateral do tríceps</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="triceps-pulley">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="flexao-diamante">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Flexão Diamante</h5>
-                                                    <p class="card-text text-muted">3 séries até a falha</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Tríceps e peitoral interno</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="flexao-diamante">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary btn-sm complete-day" data-day="day1">
-                                    <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
-                                </button>
-                                
-                                <div class="mt-3 p-3 bg-light rounded">
-                                    <h6><i class="fas fa-clipboard-list me-2"></i>Anotações do Treino</h6>
-                                    <textarea class="form-control mt-2" rows="3" placeholder="Registre cargas, observações..."></textarea>
-                                    <button class="btn btn-sm btn-outline-primary mt-2">Salvar Anotações</button>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Substitua a seção de Training Tab no código anterior por esta versão atualizada -->
+
+<!-- Training Tab -->
+<div class="tab-pane fade show active" id="pills-training" role="tabpanel">
+    <h4 class="mb-4"><i class="fas fa-dumbbell me-2"></i>Programa de Treino Semanal - Segunda a Sexta</h4>
+    
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle me-2"></i>Treinos focados em queima de gordura e definição muscular, com ênfase no peitoral.
+    </div>
+    
+    <div class="accordion" id="trainingAccordion">
+        <!-- Segunda-feira - Peito -->
+        <div class="accordion-item mb-3 border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#segunda">
+                    <i class="fas fa-calendar-day me-2"></i>Segunda: Treino Completo de Peito
+                </button>
+            </h2>
+            <div id="segunda" class="accordion-collapse collapse show" data-bs-parent="#trainingAccordion">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 45-60 segundos | Carga: 70-80% 1RM
                     </div>
                     
-                    <!-- Day 2 -->
-                    <div class="accordion-item mb-3 border-0">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day2">
-                                <i class="fas fa-running me-2"></i>Dia 2: HIIT Cardio + Core
-                            </button>
-                        </h2>
-                        <div id="day2" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
-                            <div class="accordion-body">
-                                <div class="alert alert-warning">
-                                    <i class="fas fa-stopwatch me-2"></i>Descanso entre exercícios: 30 segundos
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <div class="card exercise-card" data-exercise="hiit">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">HIIT (20 minutos)</h5>
-                                                    <p class="card-text text-muted">30s sprint / 30s descanso</p>
-                                                    <p class="card-text text-muted">Aquecimento 5min + 10 ciclos + 5min desaquecimento</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Esteira, bike ou corda naval</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="hiit">
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="supino-reto">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Supino Reto com Barra</h5>
+                                        <p class="card-text text-muted">4 séries x 8-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção média do peitoral</small></p>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="prancha">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Prancha Abdominal</h5>
-                                                    <p class="card-text text-muted">3 séries x 45-60 segundos</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Mantenha o alinhamento corporal</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="prancha">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="russian-twist">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Russian Twist</h5>
-                                                    <p class="card-text text-muted">3 séries x 20 reps (10 cada lado)</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Com peso para maior intensidade</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="russian-twist">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card exercise-card" data-exercise="leg-raise">
-                                            <div class="card-body d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <h5 class="card-title">Elevação de Pernas</h5>
-                                                    <p class="card-text text-muted">3 séries x 12-15 reps</p>
-                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Controle o movimento</small></p>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input exercise-check" type="checkbox" id="leg-raise">
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="supino-reto">
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-sm complete-day" data-day="day2">
-                                    <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
-                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="supino-inclinado">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Supino Inclinado Halteres</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção superior do peitoral</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="supino-inclinado">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="supino-declinado">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Supino Declinado</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção inferior do peitoral</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="supino-declinado">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="crucifixo">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Crucifixo no Cross Over</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Alongamento e definição</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="crucifixo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="peck-deck">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Peck Deck</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Isolamento do peitoral</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="peck-deck">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="flexao-diamante">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Flexão Diamante</h5>
+                                        <p class="card-text text-muted">3 séries até a falha</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Tríceps e peitoral interno</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="flexao-diamante">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Day 3 -->
-                    <div class="accordion-item mb-3 border-0">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day3">
-                                <i class="fas fa-dumbbell me-2"></i>Dia 3: Costas e Bíceps
-                            </button>
-                        </h2>
-                        <div id="day3" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
-                            <div class="accordion-body">
-                                <!-- Similar structure to Day 1 -->
-                                <p>Exercícios para costas e bíceps...</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 4 -->
-                    <div class="accordion-item mb-3 border-0">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day4">
-                                <i class="fas fa-running me-2"></i>Dia 4: Cardio LISS + Mobilidade
-                            </button>
-                        </h2>
-                        <div id="day4" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
-                            <div class="accordion-body">
-                                <!-- Similar structure to Day 2 -->
-                                <p>Exercícios de cardio e mobilidade...</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- More days would follow the same pattern -->
-                </div>
-                
-                <div class="card mt-4">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Estatísticas do Treino</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <h3 class="text-primary">8</h3>
-                                <p class="text-muted small">Exercícios/semana</p>
-                            </div>
-                            <div class="col-4">
-                                <h3 class="text-success">45min</h3>
-                                <p class="text-muted small">Duração média</p>
-                            </div>
-                            <div class="col-4">
-                                <h3 class="text-warning">85%</h3>
-                                <p class="text-muted small">Taxa de adesão</p>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary btn-sm complete-day" data-day="segunda">
+                        <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                    </button>
                 </div>
             </div>
-            
+        </div>
+        
+        <!-- Terça-feira - Ombros e Tríceps -->
+        <div class="accordion-item mb-3 border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#terca">
+                    <i class="fas fa-calendar-day me-2"></i>Terça: Ombros e Tríceps
+                </button>
+            </h2>
+            <div id="terca" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 45-60 segundos | Carga: 65-75% 1RM
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="desenvolvimento">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Desenvolvimento Militar</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Deltóide anterior e médio</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="desenvolvimento">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="elevacao-lateral">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Elevação Lateral</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Deltóide médio</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="elevacao-lateral">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="elevacao-frontal">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Elevação Frontal</h5>
+                                        <p class="card-text text-muted">3 séries x 12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Deltóide anterior</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="elevacao-frontal">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="crucifixo-inverso">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Crucifixo Inverso</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Deltóide posterior</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="crucifixo-inverso">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="triceps-pulley">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Tríceps Pulley Corda</h5>
+                                        <p class="card-text text-muted">4 séries x 12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Cabeça lateral do tríceps</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="triceps-pulley">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="triceps-frances">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Tríceps Francês</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Cabeça longa do tríceps</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="triceps-frances">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="mergulho">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Mergulho entre Bancos</h5>
+                                        <p class="card-text text-muted">3 séries até a falha</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Tríceps e peitoral inferior</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="mergulho">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm complete-day" data-day="terca">
+                        <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quarta-feira - Pernas -->
+        <div class="accordion-item mb-3 border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#quarta">
+                    <i class="fas fa-calendar-day me-2"></i>Quarta: Treino Completo de Pernas
+                </button>
+            </h2>
+            <div id="quarta" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 60-90 segundos | Carga: 70-85% 1RM
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="agachamento">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Agachamento Livre</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Quadríceps e glúteos</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="agachamento">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="leg-press">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Leg Press 45°</h5>
+                                        <p class="card-text text-muted">4 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Quadríceps e glúteos</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="leg-press">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="cadeira-extensora">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Cadeira Extensora</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Isolamento do quadríceps</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="cadeira-extensora">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="stiff">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Stiff</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Posterior de coxa</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="stiff">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="cadeira-flexora">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Cadeira Flexora</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Isolamento do posterior</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="cadeira-flexora">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="elevacao-pelvica">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Elevação Pélvica</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Glúteos e core</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="elevacao-pelvica">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="panturrilha">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Panturrilha em Pé</h5>
+                                        <p class="card-text text-muted">4 séries x 15-20 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Gastrocnêmio</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="panturrilha">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="panturrilha-sentado">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Panturrilha Sentado</h5>
+                                        <p class="card-text text-muted">4 séries x 15-20 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Sóleo</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="panturrilha-sentado">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm complete-day" data-day="quarta">
+                        <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quinta-feira - Costas e Bíceps -->
+        <div class="accordion-item mb-3 border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#quinta">
+                    <i class="fas fa-calendar-day me-2"></i>Quinta: Costas e Bíceps
+                </button>
+            </h2>
+            <div id="quinta" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 45-60 segundos | Carga: 70-80% 1RM
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="barra-fixa">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Barra Fixa</h5>
+                                        <p class="card-text text-muted">4 séries até a falha</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Latíssimo do dorsi</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="barra-fixa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="puxada-frontal">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Puxada Frontal</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Latíssimo do dorsi</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="puxada-frontal">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="remada-curvada">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Remada Curvada</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Trapézio e rombóides</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="remada-curvada">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="remada-cavalinho">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Remada Cavalinho</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Trapézio médio</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="remada-cavalinho">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="rosca-direta">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Rosca Direta</h5>
+                                        <p class="card-text text-muted">4 séries x 8-10 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Bíceps braquial</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="rosca-direta">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="rosca-martelo">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Rosca Martelo</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Braquiorradial</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="rosca-martelo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="rosca-concentrada">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Rosca Concentrada</h5>
+                                        <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Pico do bíceps</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="rosca-concentrada">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm complete-day" data-day="quinta">
+                        <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sexta-feira - HIIT e Core -->
+        <div class="accordion-item mb-3 border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sexta">
+                    <i class="fas fa-running me-2"></i>Sexta: HIIT Cardio + Core
+                </button>
+            </h2>
+            <div id="sexta" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-stopwatch me-2"></i>Descanso entre exercícios: 30 segundos | Intensidade máxima
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="card exercise-card" data-exercise="hiit">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">HIIT (20 minutos)</h5>
+                                        <p class="card-text text-muted">30s sprint / 30s descanso</p>
+                                        <p class="card-text text-muted">Aquecimento 5min + 10 ciclos + 5min desaquecimento</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Esteira, bike ou corda naval</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="hiit">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="prancha">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Prancha Abdominal</h5>
+                                        <p class="card-text text-muted">3 séries x 45-60 segundos</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Mantenha o alinhamento corporal</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="prancha">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="russian-twist">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Russian Twist</h5>
+                                        <p class="card-text text-muted">3 séries x 20 reps (10 cada lado)</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Com peso para maior intensidade</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="russian-twist">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="abdominal-supra">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Abdominal Supra</h5>
+                                        <p class="card-text text-muted">3 séries x 15-20 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Contraia o abdômen no topo</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="abdominal-supra">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="leg-raise">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Elevação de Pernas</h5>
+                                        <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Controle o movimento</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="leg-raise">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card exercise-card" data-exercise="bicycle-crunch">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Bicycle Crunch</h5>
+                                        <p class="card-text text-muted">3 séries x 20 reps (10 cada lado)</p>
+                                        <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Oblíquos</small></p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input exercise-check" type="checkbox" id="bicycle-crunch">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm complete-day" data-day="sexta">
+                        <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mt-4">
+        <div class="card-header bg-white">
+            <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Estatísticas do Treino</h5>
+        </div>
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col-4">
+                    <h3 id="treinoConcluido" class="text-primary"></h3>
+                    <p class="text-muted small">Concluido/Restante</p>
+                </div>
+                <div class="col-4">
+                    <h3 class="text-success">90min</h3>
+                    <p class="text-muted small">Duração média</p>
+                </div>
+                <div class="col-4">
+                    <h3 id="adesao" class="text-warning"></h3>
+                    <p class="text-muted small">Taxa de adesão</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
             <!-- Diet Tab -->
             <div class="tab-pane fade" id="pills-diet" role="tabpanel">
                 <h4 class="mb-4"><i class="fas fa-utensils me-2"></i>Plano Alimentar para Queima de Gordura</h4>
@@ -1048,126 +1416,10 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
 
-    <!-- Reminders Section -->
-    <div class="container mt-4 mb-5" id="reminders">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white">
-                <h5 class="mb-0"><i class="fas fa-bell me-2"></i>Lembretes e Notificações</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-4">
-                    <h6>Lembretes Ativos</h6>
-                    <div class="reminder-card p-3 bg-light rounded mt-2">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <i class="fas fa-dumbbell me-2"></i>Horário do Treino
-                                <div class="reminder-time">Seg, Qua, Sex - 18:00</div>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reminder-card p-3 bg-light rounded mt-2">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <i class="fas fa-pills me-2"></i>Tomar Suplementos
-                                <div class="reminder-time">Diariamente - 08:00</div>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reminder-card p-3 bg-light rounded mt-2">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <i class="fas fa-tint me-2"></i>Beber Água
-                                <div class="reminder-time">A cada 1 hora - 08:00 às 20:00</div>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addReminderModal">
-                    <i class="fas fa-plus me-1"></i>Adicionar Lembrete
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Reminder Modal -->
-    <div class="modal fade" id="addReminderModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Novo Lembrete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Título</label>
-                        <input type="text" class="form-control" id="reminderTitle" placeholder="Ex: Tomar whey protein">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Horário</label>
-                        <input type="time" class="form-control" id="reminderTime">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Repetir</label>
-                        <select class="form-select" id="reminderRepeat">
-                            <option value="daily">Diariamente</option>
-                            <option value="weekdays">Dias de semana (Seg-Sex)</option>
-                            <option value="weekly">Semanalmente</option>
-                            <option value="monthly">Mensalmente</option>
-                            <option value="none">Não repetir</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Dias da Semana (se semanal)</label>
-                        <div class="d-flex flex-wrap">
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderMon">
-                                <label class="form-check-label" for="reminderMon">Seg</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderTue">
-                                <label class="form-check-label" for="reminderTue">Ter</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderWed">
-                                <label class="form-check-label" for="reminderWed">Qua</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderThu">
-                                <label class="form-check-label" for="reminderThu">Qui</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderFri">
-                                <label class="form-check-label" for="reminderFri">Sex</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" id="reminderSat">
-                                <label class="form-check-label" for="reminderSat">Sáb</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="reminderSun">
-                                <label class="form-check-label" for="reminderSun">Dom</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveReminder">Salvar Lembrete</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-4">
@@ -1366,7 +1618,9 @@
                 var percent = Math.round((completed / total) * 100);
                 
                 $('#weeklyProgress').css('width', percent + '%').text(percent + '%');
-                $('.progress p').text('Você completou ' + completed + ' de ' + total + ' exercícios esta semana');
+                $('#progress').text('Você completou ' + completed + ' de ' + total + ' exercícios esta semana');
+                $("#treinoConcluido").text(completed+'/'+total);
+                $("#adesao").text(Math.round((completed / total) * 100) + '%');
             }
             
             function updateWaterTracker() {
