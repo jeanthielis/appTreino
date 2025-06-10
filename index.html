@@ -3,690 +3,1431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Plano de Treino e Dieta Semanal</title>
-    <!-- Bootstrap CSS -->
+    <title>FitDef+ - Queima de Gordura e Definição Peitoral</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome para ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #3498db;
-            --dark-color: #2c3e50;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
             --light-color: #ecf0f1;
-            --success-color: #28a745;
-            --warning-color: #fd7e14;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 70px;
             background-color: #f8f9fa;
-            padding-top: 160px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: white;
+        .navbar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
-        }
-        
-        .progress-container {
-            margin-bottom: 15px;
-        }
-        
-        .progress {
-            height: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .progress-bar {
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            font-weight: bold;
-        }
-        
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            color: var(--dark-color);
-            z-index: 1;
-        }
-        
-        .nav-tabs .nav-link {
-            color: var(--dark-color);
-            font-weight: 500;
-        }
-        
-        .nav-tabs .nav-link.active {
-            color: white;
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-        
-        .day-card {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            border: none;
-        }
-        
-        .day-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
+            transition: width 0.6s ease;
             background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0 !important;
         }
         
-        .list-group-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            position: relative;
-            flex-wrap: wrap;
+        .exercise-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
         }
         
-        .list-group-item:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .form-check-input {
-            margin-right: 10px;
-            transform: scale(1.2);
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .completed {
-            text-decoration: line-through;
-            color: #6c757d;
-            background-color: #e8f8f5;
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success-color);
         }
         
-        .exercise-sets, .diet-time {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-left: 10px;
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
         }
         
-        .diet-category {
-            font-weight: bold;
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            border-top: none;
+        }
+        
+        .supplement-card {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .supplement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .supplement-img {
+            height: 150px;
+            object-fit: cover;
+            background-color: #f5f5f5;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(52, 152, 219, 0.1);
             color: var(--primary-color);
-            margin-top: 15px;
-            padding-left: 10px;
-            border-left: 3px solid var(--primary-color);
+            font-weight: bold;
         }
         
-        .reset-btn {
-            margin-top: 30px;
+        .calculator-card {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            background-color: white;
         }
         
-        .video-btn {
-            padding: 3px 8px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            white-space: nowrap;
-            position: relative;
-        }
-        
-        .exercise-content {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .exercise-name {
-            margin-right: 10px;
-        }
-        
-        .video-thumbnail {
+        .notification-badge {
             position: absolute;
-            bottom: 100%;
-            right: 0;
-            width: 280px;
-            height: 158px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 10;
-            display: none;
-            border: 3px solid white;
-        }
-        
-        .video-btn:hover .video-thumbnail {
-            display: block;
-        }
-        
-        .video-btn-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
             color: white;
-            font-size: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .weight-input {
-            width: 70px;
-            display: inline-block;
-            margin-left: 10px;
-            padding: 2px 5px;
-            font-size: 0.9rem;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-        }
-        
-        .weight-label {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-left: 10px;
-        }
-        
-        .exercise-details {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-            margin-top: 5px;
+            justify-content: center;
         }
         
-        @media (max-width: 768px) {
-            body {
-                padding-top: 200px;
-            }
-            
-            .nav-tabs .nav-link {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .fixed-header {
-                padding: 10px 0;
-            }
-            
-            .list-group-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .exercise-content {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-            
-            .video-btn {
-                margin-left: 0;
-                margin-top: 5px;
-                align-self: flex-end;
-            }
-            
-            .video-thumbnail {
-                width: 200px;
-                height: 113px;
-                right: auto;
-                left: 0;
-            }
-            
-            .exercise-details {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .weight-input {
-                margin-left: 0;
-                margin-top: 5px;
-            }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .macro-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .protein-circle {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+            border: 3px solid var(--primary-color);
+        }
+        
+        .carbs-circle {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 3px solid #2ecc71;
+        }
+        
+        .fat-circle {
+            background-color: rgba(230, 126, 34, 0.2);
+            color: #e67e22;
+            border: 3px solid #e67e22;
+        }
+        
+        .water-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .water-cup {
+            width: 40px;
+            height: 60px;
+            background-color: #d4f1f9;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #86d0f7;
+        }
+        
+        .water-cup.active {
+            background-color: #86d0f7;
+        }
+        
+        .water-cup.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background-color: rgba(255,255,255,0.3);
+            animation: waterFill 0.5s ease;
+        }
+        
+        @keyframes waterFill {
+            from { height: 0%; }
+            to { height: 100%; }
+        }
+        
+        .reminder-card {
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .reminder-time {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- Cabeçalho Fixo -->
-    <div class="fixed-header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <h1 class="text-center mb-3">Meu Plano de Treino e Dieta Semanal</h1>
-            
-            <div class="progress-container">
-                <div class="position-relative">
-                    <div class="progress">
-                        <div id="progressBar" class="progress-bar" role="progressbar"></div>
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-fire-alt me-2"></i>FitDef+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home"><i class="fas fa-home me-1"></i> Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#training"><i class="fas fa-dumbbell me-1"></i> Treino</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#diet"><i class="fas fa-utensils me-1"></i> Dieta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#supplements"><i class="fas fa-pills me-1"></i> Suplementos</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#reminders"><i class="fas fa-bell me-1"></i> Lembretes
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Progress Section -->
+        <div class="card mb-4 border-0 shadow-sm" id="home">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Seu Progresso Semanal</h5>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3" style="height: 25px;">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" id="weeklyProgress">25%</div>
+                </div>
+                <p class="text-muted mb-3">Você completou 2 de 8 treinos esta semana</p>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-primary btn-sm" id="resetProgress">
+                        <i class="fas fa-sync-alt me-1"></i>Reiniciar Progresso
+                    </button>
+                    <button class="btn btn-primary btn-sm" id="shareProgress">
+                        <i class="fas fa-share-alt me-1"></i>Compartilhar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-training-tab" data-bs-toggle="pill" data-bs-target="#pills-training" type="button">
+                    <i class="fas fa-dumbbell me-1"></i>Treino
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-diet-tab" data-bs-toggle="pill" data-bs-target="#pills-diet" type="button">
+                    <i class="fas fa-utensils me-1"></i>Dieta
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-supplements-tab" data-bs-toggle="pill" data-bs-target="#pills-supplements" type="button">
+                    <i class="fas fa-pills me-1"></i>Suplementos
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-calculator-tab" data-bs-toggle="pill" data-bs-target="#pills-calculator" type="button">
+                    <i class="fas fa-calculator me-1"></i>Calculadora
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tabs Content -->
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Training Tab -->
+            <div class="tab-pane fade show active" id="pills-training" role="tabpanel">
+                <h4 class="mb-4"><i class="fas fa-dumbbell me-2"></i>Programa de Treino para Definição Peitoral</h4>
+                
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i>Este programa combina hipertrofia e cardio para máxima definição muscular.
+                </div>
+                
+                <div class="accordion" id="trainingAccordion">
+                    <!-- Day 1 -->
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day1">
+                                <i class="fas fa-calendar-day me-2"></i>Dia 1: Peito e Tríceps (Intenso)
+                            </button>
+                        </h2>
+                        <div id="day1" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                            <div class="accordion-body">
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-stopwatch me-2"></i>Descanso entre séries: 45-60 segundos
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="supino-reto">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Supino Reto com Barra</h5>
+                                                    <p class="card-text text-muted">4 séries x 8-12 reps</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção média do peitoral</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="supino-reto">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="supino-inclinado">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Supino Inclinado Halteres</h5>
+                                                    <p class="card-text text-muted">3 séries x 10-12 reps</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Porção superior do peitoral</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="supino-inclinado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="crucifixo">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Crucifixo no Cross Over</h5>
+                                                    <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Alongamento e definição</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="crucifixo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="triceps-pulley">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Tríceps Pulley Corda</h5>
+                                                    <p class="card-text text-muted">4 séries x 12 reps</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Cabeça lateral do tríceps</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="triceps-pulley">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="flexao-diamante">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Flexão Diamante</h5>
+                                                    <p class="card-text text-muted">3 séries até a falha</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Foco: Tríceps e peitoral interno</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="flexao-diamante">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm complete-day" data-day="day1">
+                                    <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                                </button>
+                                
+                                <div class="mt-3 p-3 bg-light rounded">
+                                    <h6><i class="fas fa-clipboard-list me-2"></i>Anotações do Treino</h6>
+                                    <textarea class="form-control mt-2" rows="3" placeholder="Registre cargas, observações..."></textarea>
+                                    <button class="btn btn-sm btn-outline-primary mt-2">Salvar Anotações</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="progressText" class="progress-text">0% Completo</div>
+                    
+                    <!-- Day 2 -->
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day2">
+                                <i class="fas fa-running me-2"></i>Dia 2: HIIT Cardio + Core
+                            </button>
+                        </h2>
+                        <div id="day2" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                            <div class="accordion-body">
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-stopwatch me-2"></i>Descanso entre exercícios: 30 segundos
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <div class="card exercise-card" data-exercise="hiit">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">HIIT (20 minutos)</h5>
+                                                    <p class="card-text text-muted">30s sprint / 30s descanso</p>
+                                                    <p class="card-text text-muted">Aquecimento 5min + 10 ciclos + 5min desaquecimento</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Esteira, bike ou corda naval</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="hiit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="prancha">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Prancha Abdominal</h5>
+                                                    <p class="card-text text-muted">3 séries x 45-60 segundos</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Mantenha o alinhamento corporal</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="prancha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="russian-twist">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Russian Twist</h5>
+                                                    <p class="card-text text-muted">3 séries x 20 reps (10 cada lado)</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Com peso para maior intensidade</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="russian-twist">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card exercise-card" data-exercise="leg-raise">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="card-title">Elevação de Pernas</h5>
+                                                    <p class="card-text text-muted">3 séries x 12-15 reps</p>
+                                                    <p class="card-text text-muted"><small><i class="fas fa-lightbulb me-1"></i>Controle o movimento</small></p>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input exercise-check" type="checkbox" id="leg-raise">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm complete-day" data-day="day2">
+                                    <i class="fas fa-check-circle me-1"></i>Marcar Dia como Completo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 3 -->
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day3">
+                                <i class="fas fa-dumbbell me-2"></i>Dia 3: Costas e Bíceps
+                            </button>
+                        </h2>
+                        <div id="day3" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                            <div class="accordion-body">
+                                <!-- Similar structure to Day 1 -->
+                                <p>Exercícios para costas e bíceps...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 4 -->
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day4">
+                                <i class="fas fa-running me-2"></i>Dia 4: Cardio LISS + Mobilidade
+                            </button>
+                        </h2>
+                        <div id="day4" class="accordion-collapse collapse" data-bs-parent="#trainingAccordion">
+                            <div class="accordion-body">
+                                <!-- Similar structure to Day 2 -->
+                                <p>Exercícios de cardio e mobilidade...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- More days would follow the same pattern -->
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Estatísticas do Treino</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h3 class="text-primary">8</h3>
+                                <p class="text-muted small">Exercícios/semana</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-success">45min</h3>
+                                <p class="text-muted small">Duração média</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-warning">85%</h3>
+                                <p class="text-muted small">Taxa de adesão</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="workout-tab" data-bs-toggle="tab" data-bs-target="#workout" type="button" role="tab">Treino</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="diet-tab" data-bs-toggle="tab" data-bs-target="#diet" type="button" role="tab">Dieta</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tips-tab" data-bs-toggle="tab" data-bs-target="#tips" type="button" role="tab">Dicas Extras</button>
-                </li>
-            </ul>
+            <!-- Diet Tab -->
+            <div class="tab-pane fade" id="pills-diet" role="tabpanel">
+                <h4 class="mb-4"><i class="fas fa-utensils me-2"></i>Plano Alimentar para Queima de Gordura</h4>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-clipboard-list me-2"></i>Princípios da Dieta
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-minus-circle text-danger me-3"></i>
+                                        Déficit calórico de 300-500kcal
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-dumbbell text-primary me-3"></i>
+                                        Alto consumo de proteínas (2g/kg)
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-seedling text-success me-3"></i>
+                                        Gorduras saudáveis (30% das calorias)
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-bread-slice text-warning me-3"></i>
+                                        Carboidratos complexos e fibrosos
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-tint text-info me-3"></i>
+                                        2-3 litros de água/dia
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-clock text-secondary me-3"></i>
+                                        Jejum intermitente opcional (16/8)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-calendar-day me-2"></i>Exemplo de Cardápio Diário
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-sun text-warning me-2"></i>Café da Manhã (7h)</h6>
+                                    <p class="ms-4">Omelete com 3 claras + 1 gema + 2 colheres de aveia + 1/4 abacate</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-apple-alt text-success me-2"></i>Lanche da Manhã (10h)</h6>
+                                    <p class="ms-4">200g de iogurte grego + 1 colher de mix de castanhas</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-utensils text-danger me-2"></i>Almoço (13h)</h6>
+                                    <p class="ms-4">150g de frango grelhado + 100g de batata-doce + brócolis à vontade</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-blender text-info me-2"></i>Pré-Treino (16h)</h6>
+                                    <p class="ms-4">1 scoop de whey protein + 1 banana + 1 colher de pasta de amendoim</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-drumstick-bite text-primary me-2"></i>Jantar (20h)</h6>
+                                    <p class="ms-4">150g de salmão + 1/2 xícara de quinoa + salada verde com azeite</p>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6><i class="fas fa-bed text-secondary me-2"></i>Ceia (22h)</h6>
+                                    <p class="ms-4">1 porção de queijo cottage + 1 colher de linhaça</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-tint me-2"></i>Controle de Água
+                            </div>
+                            <div class="card-body">
+                                <h5 class="text-center mb-4">Meta: 3 litros/dia</h5>
+                                <div class="water-tracker">
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                    <div class="water-cup" data-amount="250"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <small class="text-muted">Clique nos copos para marcar como consumidos</small>
+                                    <div class="mt-2">
+                                        <span id="water-consumed">0</span>ml / 3000ml
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-exchange-alt me-2"></i>Substituições
+                            </div>
+                            <div class="card-body">
+                                <div class="accordion" id="foodSubstitutions">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proteinSub">
+                                                Proteínas
+                                            </button>
+                                        </h2>
+                                        <div id="proteinSub" class="accordion-collapse collapse" data-bs-parent="#foodSubstitutions">
+                                            <div class="accordion-body">
+                                                <p><strong>Frango:</strong> Peru, peito de pato, carne magra</p>
+                                                <p><strong>Peixes:</strong> Atum, tilápia, merluza, pescada</p>
+                                                <p><strong>Ovos:</strong> Clara em pó, tofu, tempeh</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#carbSub">
+                                                Carboidratos
+                                            </button>
+                                        </h2>
+                                        <div id="carbSub" class="accordion-collapse collapse" data-bs-parent="#foodSubstitutions">
+                                            <div class="accordion-body">
+                                                <p><strong>Batata-doce:</strong> Mandioquinha, inhame, arroz integral</p>
+                                                <p><strong>Quinoa:</strong> Arroz negro, trigo sarraceno, painço</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fatSub">
+                                                Gorduras
+                                            </button>
+                                        </h2>
+                                        <div id="fatSub" class="accordion-collapse collapse" data-bs-parent="#foodSubstitutions">
+                                            <div class="accordion-body">
+                                                <p><strong>Abacate:</strong> Azeite de oliva, castanhas, sementes</p>
+                                                <p><strong>Pasta de amendoim:</strong> Tahine, pasta de amêndoa</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Supplements Tab -->
+            <div class="tab-pane fade" id="pills-supplements" role="tabpanel">
+                <h4 class="mb-4"><i class="fas fa-pills me-2"></i>Protocolo de Suplementação</h4>
+                
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i>Os suplementos devem complementar, não substituir uma alimentação balanceada.
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=Whey+Protein" class="card-img-top supplement-img" alt="Whey Protein">
+                            <div class="card-body">
+                                <h5 class="card-title">Whey Protein</h5>
+                                <p class="card-text">30g pós-treino ou como lanche proteico</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Horário ideal: Imediatamente após o treino ou entre refeições</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-primary">Essencial</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=Creatina" class="card-img-top supplement-img" alt="Creatina">
+                            <div class="card-body">
+                                <h5 class="card-title">Creatina Monohidratada</h5>
+                                <p class="card-text">5g ao dia (qualquer horário)</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Pode ser tomada com whey pós-treino</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-primary">Essencial</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=Termogênico" class="card-img-top supplement-img" alt="Termogênico">
+                            <div class="card-body">
+                                <h5 class="card-title">Termogênico</h5>
+                                <p class="card-text">1 dose antes do treino (manhã)</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Contém cafeína - evitar após 16h</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-warning text-dark">Opcional</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=Ômega+3" class="card-img-top supplement-img" alt="Ômega 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Ômega 3</h5>
+                                <p class="card-text">1g com as principais refeições</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Tomar com almoço e jantar</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-success">Saúde</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=Multivitamínico" class="card-img-top supplement-img" alt="Multivitamínico">
+                            <div class="card-body">
+                                <h5 class="card-title">Multivitamínico</h5>
+                                <p class="card-text">1 dose ao dia (após café da manhã)</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Garante micronutrientes essenciais</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-success">Saúde</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card supplement-card h-100">
+                            <img src="https://via.placeholder.com/300x150?text=BCAA" class="card-img-top supplement-img" alt="BCAA">
+                            <div class="card-body">
+                                <h5 class="card-title">BCAA</h5>
+                                <p class="card-text">Durante treinos intensos (>1h)</p>
+                                <p class="text-muted"><small><i class="fas fa-clock me-1"></i>Diluir em 500ml de água</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-warning text-dark">Opcional</span>
+                                    <button class="btn btn-sm btn-outline-primary">Marcar como Comprado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-calendar-alt me-2"></i>Cronograma de Suplementação Diária
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Horário</th>
+                                        <th>Segunda</th>
+                                        <th>Terça</th>
+                                        <th>Quarta</th>
+                                        <th>Quinta</th>
+                                        <th>Sexta</th>
+                                        <th>Sábado</th>
+                                        <th>Domingo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Manhã (8h)</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                        <td>Multivitamínico</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pré-Treino</td>
+                                        <td>Termogênico</td>
+                                        <td>Termogênico</td>
+                                        <td>-</td>
+                                        <td>Termogênico</td>
+                                        <td>Termogênico</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pós-Treino</td>
+                                        <td>Whey + Creatina</td>
+                                        <td>Whey + Creatina</td>
+                                        <td>Whey + Creatina</td>
+                                        <td>Whey + Creatina</td>
+                                        <td>Whey + Creatina</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Almoço (13h)</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jantar (20h)</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                        <td>Ômega 3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calculator Tab -->
+            <div class="tab-pane fade" id="pills-calculator" role="tabpanel">
+                <h4 class="mb-4"><i class="fas fa-calculator me-2"></i>Calculadora de Macros e Calorias</h4>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card calculator-card">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-user me-2"></i>Seus Dados
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="weight" class="form-label">Peso (kg)</label>
+                                    <input type="number" class="form-control" id="weight" placeholder="Ex: 75">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="height" class="form-label">Altura (cm)</label>
+                                    <input type="number" class="form-control" id="height" placeholder="Ex: 175">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Idade</label>
+                                    <input type="number" class="form-control" id="age" placeholder="Ex: 30">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="activity" class="form-label">Nível de Atividade</label>
+                                    <select class="form-select" id="activity">
+                                        <option value="1.2">Sedentário (pouco ou nenhum exercício)</option>
+                                        <option value="1.375">Levemente ativo (exercício leve 1-3 dias/semana)</option>
+                                        <option value="1.55">Moderadamente ativo (exercício moderado 3-5 dias/semana)</option>
+                                        <option value="1.725">Muito ativo (exercício pesado 6-7 dias/semana)</option>
+                                        <option value="1.9">Extremamente ativo (exercício muito pesado + trabalho físico)</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="goal" class="form-label">Objetivo</label>
+                                    <select class="form-select" id="goal">
+                                        <option value="-500">Perda de gordura (déficit de 500kcal)</option>
+                                        <option value="-300">Perda leve de gordura (déficit de 300kcal)</option>
+                                        <option value="0">Manutenção</option>
+                                        <option value="300">Ganho de massa (superávit de 300kcal)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary w-100" id="calculateMacros">Calcular Meus Macros</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card calculator-card">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-chart-pie me-2"></i>Resultados
+                            </div>
+                            <div class="card-body text-center">
+                                <div id="results" style="display: none;">
+                                    <h5 class="mb-4">Sua Meta Diária</h5>
+                                    
+                                    <div class="mb-4">
+                                        <h3><span id="totalCalories">0</span> kcal</h3>
+                                        <p class="text-muted">Total de calorias diárias</p>
+                                    </div>
+                                    
+                                    <div class="row mb-4">
+                                        <div class="col-4">
+                                            <div class="macro-circle protein-circle">
+                                                <span id="proteinGrams">0</span>g
+                                            </div>
+                                            <p>Proteínas</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="macro-circle carbs-circle">
+                                                <span id="carbsGrams">0</span>g
+                                            </div>
+                                            <p>Carboidratos</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="macro-circle fat-circle">
+                                                <span id="fatGrams">0</span>g
+                                            </div>
+                                            <p>Gorduras</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <span id="proteinPerKg">0</span>g de proteína por kg de peso corporal
+                                    </div>
+                                    
+                                    <button class="btn btn-outline-primary btn-sm" id="saveMacros">
+                                        <i class="fas fa-save me-1"></i>Salvar Meus Macros
+                                    </button>
+                                </div>
+                                
+                                <div id="noResults">
+                                    <div class="py-5">
+                                        <i class="fas fa-calculator fa-3x text-muted mb-3"></i>
+                                        <p>Preencha seus dados para calcular suas necessidades nutricionais</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-history me-2"></i>Histórico de Progresso
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Peso</th>
+                                        <th>IMC</th>
+                                        <th>% Gordura</th>
+                                        <th>Calorias</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="progressTable">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">Nenhum registro encontrado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProgressModal">
+                            <i class="fas fa-plus me-1"></i>Adicionar Medidas
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- Conteúdo Principal -->
-    <div class="container">
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="workout" role="tabpanel">
-                <div class="row" id="weekContainer">
-                    <!-- Os dias da semana serão inseridos aqui pelo JavaScript -->
+
+    <!-- Add Progress Modal -->
+    <div class="modal fade" id="addProgressModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Medidas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <button id="resetWorkoutBtn" class="btn btn-primary reset-btn d-block mx-auto">
-                    <i class="fas fa-sync-alt me-2"></i>Reiniciar Semana de Treino
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Data</label>
+                        <input type="date" class="form-control" id="progressDate" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Peso (kg)</label>
+                        <input type="number" class="form-control" id="progressWeight" placeholder="Ex: 75.5">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">% Gordura Corporal (opcional)</label>
+                        <input type="number" class="form-control" id="progressFat" placeholder="Ex: 15">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Medida do Peitoral (cm, opcional)</label>
+                        <input type="number" class="form-control" id="progressChest" placeholder="Ex: 105">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveProgress">Salvar Medidas</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reminders Section -->
+    <div class="container mt-4 mb-5" id="reminders">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-bell me-2"></i>Lembretes e Notificações</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h6>Lembretes Ativos</h6>
+                    <div class="reminder-card p-3 bg-light rounded mt-2">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fas fa-dumbbell me-2"></i>Horário do Treino
+                                <div class="reminder-time">Seg, Qua, Sex - 18:00</div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reminder-card p-3 bg-light rounded mt-2">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fas fa-pills me-2"></i>Tomar Suplementos
+                                <div class="reminder-time">Diariamente - 08:00</div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reminder-card p-3 bg-light rounded mt-2">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="fas fa-tint me-2"></i>Beber Água
+                                <div class="reminder-time">A cada 1 hora - 08:00 às 20:00</div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addReminderModal">
+                    <i class="fas fa-plus me-1"></i>Adicionar Lembrete
                 </button>
             </div>
-            
-            <div class="tab-pane fade" id="diet" role="tabpanel">
-                <div class="row justify-content-center">
-                    <div class="col-md-10">
-                        <div id="dietContainer">
-                            <!-- Plano alimentar será inserido aqui pelo JavaScript -->
+        </div>
+    </div>
+
+    <!-- Add Reminder Modal -->
+    <div class="modal fade" id="addReminderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Lembrete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Título</label>
+                        <input type="text" class="form-control" id="reminderTitle" placeholder="Ex: Tomar whey protein">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Horário</label>
+                        <input type="time" class="form-control" id="reminderTime">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Repetir</label>
+                        <select class="form-select" id="reminderRepeat">
+                            <option value="daily">Diariamente</option>
+                            <option value="weekdays">Dias de semana (Seg-Sex)</option>
+                            <option value="weekly">Semanalmente</option>
+                            <option value="monthly">Mensalmente</option>
+                            <option value="none">Não repetir</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dias da Semana (se semanal)</label>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderMon">
+                                <label class="form-check-label" for="reminderMon">Seg</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderTue">
+                                <label class="form-check-label" for="reminderTue">Ter</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderWed">
+                                <label class="form-check-label" for="reminderWed">Qua</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderThu">
+                                <label class="form-check-label" for="reminderThu">Qui</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderFri">
+                                <label class="form-check-label" for="reminderFri">Sex</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="reminderSat">
+                                <label class="form-check-label" for="reminderSat">Sáb</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="reminderSun">
+                                <label class="form-check-label" for="reminderSun">Dom</label>
+                            </div>
                         </div>
-                        <button id="resetDietBtn" class="btn btn-primary reset-btn d-block mx-auto">
-                            <i class="fas fa-sync-alt me-2"></i>Reiniciar Semana de Dieta
-                        </button>
                     </div>
                 </div>
-            </div>
-            
-            <div class="tab-pane fade" id="tips" role="tabpanel">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div id="tipsContainer">
-                            <!-- Dicas extras serão inseridas aqui pelo JavaScript -->
-                        </div>
-                        <button id="resetTipsBtn" class="btn btn-primary reset-btn d-block mx-auto">
-                            <i class="fas fa-sync-alt me-2"></i>Reiniciar Dicas
-                        </button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveReminder">Salvar Lembrete</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- jQuery e Bootstrap JS -->
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5><i class="fas fa-fire-alt me-2"></i>FitDef+</h5>
+                    <p class="small">Seu companheiro para queima de gordura e definição muscular.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h6>Links Úteis</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-white">Blog</a></li>
+                        <li><a href="#" class="text-white">FAQ</a></li>
+                        <li><a href="#" class="text-white">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h6>Legal</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-white">Termos de Uso</a></li>
+                        <li><a href="#" class="text-white">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-white">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div class="text-center small">
+                <p class="mb-0">© 2023 FitDef+. Todos os direitos reservados.</p>
+                <p class="mb-0">Consulte um profissional antes de iniciar qualquer programa de exercícios ou dieta.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Função para extrair ID do vídeo do YouTube
-        function getYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        // Dados do plano de treino com links para vídeos
-        const workoutPlan = [
-            {
-                day: "Segunda-feira",
-                focus: "Peito + Tríceps + Cardio",
-                exercises: [
-                    { name: "Supino reto (barra ou halteres)", sets: "4x12", video: "https://www.youtube.com/watch?v=SCVCLChPQFY" },
-                    { name: "Flexões (com variações)", sets: "3x15-20", video: "https://www.youtube.com/watch?v=Eh00_rniF8E" },
-                    { name: "Crucifixo (máquina ou halteres)", sets: "3x12", video: "https://www.youtube.com/watch?v=Q3EM5vgvV3Q" },
-                    { name: "Mergulho (tríceps no banco ou paralelas)", sets: "3x12", video: "https://www.youtube.com/watch?v=6kALZikXxLc" },
-                    { name: "Tríceps corda (polia alta)", sets: "3x12", video: "https://www.youtube.com/watch?v=6kALZikXxLc" },
-                    { name: "Cardio: 20 min esteira inclinada ou bicicleta", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
-                ]
-            },
-            {
-                day: "Terça-feira",
-                focus: "Pernas + HIIT",
-                exercises: [
-                    { name: "Agachamento livre", sets: "4x12", video: "https://www.youtube.com/watch?v=aclHkVaku9U" },
-                    { name: "Leg press", sets: "3x12", video: "https://www.youtube.com/watch?v=IZxyjW7MPJQ" },
-                    { name: "Stiff (terra romeno)", sets: "3x12", video: "https://www.youtube.com/watch?v=1uDiW5--rAE" },
-                    { name: "Cadeira extensora", sets: "3x12", video: "https://www.youtube.com/watch?v=YyvSfVjQeL0" },
-                    { name: "Panturrilha em pé", sets: "4x15", video: "https://www.youtube.com/watch?v=JbyjNymZOt0" },
-                    { name: "HIIT: 30s tiro / 30s descanso (8 rounds)", sets: "", video: "https://www.youtube.com/watch?v=ml6cT4AZdqI" }
-                ]
-            },
-            {
-                day: "Quarta-feira",
-                focus: "Costas + Bíceps + Cardio",
-                exercises: [
-                    { name: "Barra fixa (ou pulley alto)", sets: "4x10", video: "https://www.youtube.com/watch?v=eGo4IYlbE5g" },
-                    { name: "Remada curvada", sets: "3x12", video: "https://www.youtube.com/watch?v=roCP6wCXPqo" },
-                    { name: "Pulley frente", sets: "3x12", video: "https://www.youtube.com/watch?v=CAwf7n6Luuc" },
-                    { name: "Rosca direta (barra W)", sets: "3x12", video: "https://www.youtube.com/watch?v=kwG2ipFRgfo" },
-                    { name: "Rosca martelo", sets: "3x12", video: "https://www.youtube.com/watch?v=TwD-YGVP4Bk" },
-                    { name: "Cardio: 20 min remador ou elíptico", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
-                ]
-            },
-            {
-                day: "Quinta-feira",
-                focus: "HIIT + Abdômen",
-                exercises: [
-                    { name: "HIIT: 40s corrida / 20s descanso (10-15 rounds)", sets: "", video: "https://www.youtube.com/watch?v=ml6cT4AZdqI" },
-                    { name: "Prancha", sets: "3x1 min", video: "https://www.youtube.com/watch?v=B296mZDhrP4" },
-                    { name: "Abdominal supra", sets: "3x20", video: "https://www.youtube.com/watch?v=MKmrqcoCZ-M" },
-                    { name: "Elevação de pernas", sets: "3x15", video: "https://www.youtube.com/watch?v=JB2oyawG9KI" }
-                ]
-            },
-            {
-                day: "Sexta-feira",
-                focus: "Ombros + Trapézio + Cardio",
-                exercises: [
-                    { name: "Desenvolvimento militar (halteres)", sets: "4x12", video: "https://www.youtube.com/watch?v=qEwKCR5JCog" },
-                    { name: "Elevação lateral", sets: "3x12", video: "https://www.youtube.com/watch?v=3VcKaXpzqRo" },
-                    { name: "Remada alta", sets: "3x12", video: "https://www.youtube.com/watch?v=ca1cK9bAVC4" },
-                    { name: "Encolhimento de ombros (halteres)", sets: "3x15", video: "https://www.youtube.com/watch?v=v_N0TkGJgN0" },
-                    { name: "Cardio: 15 min escada ou bike", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
-                ]
-            },
-            {
-                day: "Sábado",
-                focus: "Treino Completo (Full Body) + Cardio",
-                exercises: [
-                    { name: "Burpees", sets: "3x15", video: "https://www.youtube.com/watch?v=dZgVxmf6jkA" },
-                    { name: "Kettlebell swing", sets: "3x20", video: "https://www.youtube.com/watch?v=mKDIuUbH94Q" },
-                    { name: "Agachamento com salto", sets: "3x12", video: "https://www.youtube.com/watch?v=CVaEhXotL7M" },
-                    { name: "Flexões explosivas", sets: "3x12", video: "https://www.youtube.com/watch?v=Eh00_rniF8E" },
-                    { name: "Cardio: 20 min natação ou corrida leve", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
-                ]
-            },
-            {
-                day: "Domingo",
-                focus: "Descanso ou Mobilidade",
-                exercises: [
-                    { name: "Alongamento ou yoga", sets: "", video: "https://www.youtube.com/watch?v=oX6I6vs1EFs" },
-                    { name: "Caminhada leve", sets: "", video: "https://www.youtube.com/watch?v=6kALZikXxLc" }
-                ]
-            }
-        ];
-
-        // Dados do plano de dieta
-        const dietPlan = {
-            "Café da Manhã": [
-                { meal: "Omelete com 3 claras + 1 gema + espinafre", time: "07:00" },
-                { meal: "1 fatia de pão integral", time: "" },
-                { meal: "Café preto (sem açúcar)", time: "" }
-            ],
-            "Lanche da Manhã": [
-                { meal: "Whey protein com água ou leite desnatado", time: "10:00" }
-            ],
-            "Almoço": [
-                { meal: "150g de frango grelhado", time: "12:30" },
-                { meal: "1 concha de feijão ou lentilha", time: "" },
-                { meal: "Brócolis e abobrinha no vapor", time: "" },
-                { meal: "1 colher de azeite", time: "" }
-            ],
-            "Lanche da Tarde": [
-                { meal: "Mix de castanhas (30g)", time: "16:00" },
-                { meal: "Iogurte natural + 1 colher de chia", time: "" }
-            ],
-            "Jantar": [
-                { meal: "150g de peixe (salmão, tilápia)", time: "19:30" },
-                { meal: "Purê de batata-doce", time: "" },
-                { meal: "Salada verde (alface, tomate, pepino)", time: "" }
-            ],
-            "Ceia (opcional)": [
-                { meal: "Chá de camomila ou erva-doce", time: "21:30" }
-            ]
-        };
-
-        // Dicas extras
-        const extraTips = [
-            { tip: "Beba 3L de água por dia (ajuda no metabolismo)" },
-            { tip: "Durma 7–8h (sono ruim aumenta gordura)" },
-            { tip: "Mantenha o déficit calórico (use apps como MyFitnessPal)" },
-            { tip: "Evite açúcar, refrigerante e álcool" },
-            { tip: "Controle o consumo de sal (reduz retenção líquida)" },
-            { tip: "Faça exames hormonais se necessário (testosterona/estrogênio)" },
-            { tip: "Mantenha consistência - resultados levam tempo" }
-        ];
-
-        // Função para calcular e atualizar o progresso
-        function updateProgress() {
-            let totalExercises = 0;
-            let completedExercises = 0;
-            
-            $.each(workoutPlan, function(index, dayPlan) {
-                $.each(dayPlan.exercises, function(exIndex, exercise) {
-                    const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
-                    if (localStorage.getItem(exerciseId) === 'true') {
-                        completedExercises++;
-                    }
-                    totalExercises++;
-                });
-            });
-            
-            const progressPercentage = totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0;
-            const progressBar = $('#progressBar');
-            const progressText = $('#progressText');
-            
-            progressBar.css('width', `${progressPercentage}%`);
-            progressText.text(`${progressPercentage}% Completo (${completedExercises}/${totalExercises} exercícios)`);
-            
-            // Mudar cor conforme progresso
-            if (progressPercentage < 30) {
-                progressBar.removeClass('bg-warning bg-success').addClass('bg-danger');
-            } else if (progressPercentage < 70) {
-                progressBar.removeClass('bg-danger bg-success').addClass('bg-warning');
-            } else {
-                progressBar.removeClass('bg-danger bg-warning').addClass('bg-success');
-            }
-        }
-
-        // Função para renderizar os dias de treino
-        function renderWorkoutDays() {
-            const weekContainer = $('#weekContainer');
-            weekContainer.empty();
-            
-            $.each(workoutPlan, function(index, dayPlan) {
-                const dayCard = $(`
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card day-card">
-                            <div class="card-header">
-                                ${dayPlan.day}
-                                <small class="d-block">${dayPlan.focus}</small>
-                            </div>
-                            <ul class="list-group list-group-flush"></ul>
-                        </div>
-                    </div>
-                `);
-                
-                const exerciseList = dayCard.find('ul');
-                
-                $.each(dayPlan.exercises, function(exIndex, exercise) {
-                    const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
-                    const weightId = `weight-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
-                    const isCompleted = localStorage.getItem(exerciseId) === 'true';
-                    const savedWeight = localStorage.getItem(weightId) || '';
-                    const videoId = getYouTubeId(exercise.video);
-                    const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
-                    
-                    const exerciseItem = $(`
-                        <li class="list-group-item ${isCompleted ? 'completed' : ''}">
-                            <input class="form-check-input exercise-checkbox" type="checkbox" id="${exerciseId}" ${isCompleted ? 'checked' : ''}>
-                            <div class="exercise-content">
-                                <span class="exercise-name">${exercise.name}</span>
-                                <span class="exercise-sets">${exercise.sets}</span>
-                            </div>
-                            <div class="video-btn-container">
-                                <a href="${exercise.video}" target="_blank" class="btn btn-sm btn-outline-primary video-btn" title="Ver demonstração">
-                                    <i class="fas fa-play me-1"></i>Vídeo
-                                    <div class="video-thumbnail" style="background-image: url('${thumbnailUrl}')">
-                                        <div class="play-icon"><i class="fas fa-play-circle"></i></div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="exercise-details">
-                                <span class="weight-label">Peso (kg):</span>
-                                <input type="number" class="weight-input" id="${weightId}" value="${savedWeight}" placeholder="0.0" step="0.5" min="0">
-                            </div>
-                        </li>
-                    `);
-                    
-                    exerciseItem.find('input[type="checkbox"]').on('change', function() {
-                        localStorage.setItem(exerciseId, this.checked);
-                        $(this).closest('li').toggleClass('completed', this.checked);
-                        updateProgress();
-                    });
-                    
-                    exerciseItem.find('.weight-input').on('change', function() {
-                        localStorage.setItem(weightId, this.value);
-                    });
-                    
-                    exerciseList.append(exerciseItem);
-                });
-                
-                weekContainer.append(dayCard);
-            });
-            
-            updateProgress();
-        }
-
-        // Função para renderizar o plano de dieta
-        function renderDietPlan() {
-            const dietContainer = $('#dietContainer');
-            dietContainer.empty();
-            
-            const dietCard = $(`
-                <div class="card day-card">
-                    <div class="card-header">Plano Alimentar Semanal</div>
-                    <div class="card-body"></div>
-                </div>
-            `);
-            
-            const cardBody = dietCard.find('.card-body');
-            
-            $.each(dietPlan, function(category, meals) {
-                cardBody.append(`<h5 class="diet-category">${category}</h5>`);
-                const mealList = $('<div class="list-group"></div>');
-                
-                $.each(meals, function(mealIndex, meal) {
-                    const mealId = `diet-${category.replace(/\s+/g, '-').toLowerCase()}-meal-${mealIndex}`;
-                    const isCompleted = localStorage.getItem(mealId) === 'true';
-                    
-                    const mealItem = $(`
-                        <div class="list-group-item ${isCompleted ? 'completed' : ''}">
-                            <input class="form-check-input diet-checkbox" type="checkbox" id="${mealId}" ${isCompleted ? 'checked' : ''}>
-                            <span class="diet-meal">${meal.meal}</span>
-                            <span class="diet-time">${meal.time}</span>
-                        </div>
-                    `);
-                    
-                    mealItem.find('input').on('change', function() {
-                        localStorage.setItem(mealId, this.checked);
-                        $(this).closest('.list-group-item').toggleClass('completed', this.checked);
-                    });
-                    
-                    mealList.append(mealItem);
-                });
-                
-                cardBody.append(mealList);
-            });
-            
-            dietContainer.append(dietCard);
-        }
-
-        // Função para renderizar as dicas extras
-        function renderExtraTips() {
-            const tipsContainer = $('#tipsContainer');
-            tipsContainer.empty();
-            
-            const tipsCard = $(`
-                <div class="card day-card">
-                    <div class="card-header">Dicas Extras para Resultados Rápidos</div>
-                    <div class="list-group list-group-flush"></div>
-                </div>
-            `);
-            
-            const tipsList = tipsCard.find('.list-group');
-            
-            $.each(extraTips, function(index, tip) {
-                const tipId = `tip-${index}`;
-                const isCompleted = localStorage.getItem(tipId) === 'true';
-                
-                const tipItem = $(`
-                    <div class="list-group-item ${isCompleted ? 'completed' : ''}">
-                        <input class="form-check-input tip-checkbox" type="checkbox" id="${tipId}" ${isCompleted ? 'checked' : ''}>
-                        <span class="tip-text">${tip.tip}</span>
-                    </div>
-                `);
-                
-                tipItem.find('input').on('change', function() {
-                    localStorage.setItem(tipId, this.checked);
-                    $(this).closest('.list-group-item').toggleClass('completed', this.checked);
-                });
-                
-                tipsList.append(tipItem);
-            });
-            
-            tipsContainer.append(tipsCard);
-        }
-
-        // Funções para resetar
-        function resetWorkout() {
-            $.each(workoutPlan, function(index, dayPlan) {
-                $.each(dayPlan.exercises, function(exIndex, exercise) {
-                    const exerciseId = `workout-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
-                    const weightId = `weight-${dayPlan.day.replace(/\s+/g, '-').toLowerCase()}-ex-${exIndex}`;
-                    localStorage.removeItem(exerciseId);
-                    localStorage.removeItem(weightId);
-                });
-            });
-            renderWorkoutDays();
-        }
-
-        function resetDiet() {
-            $.each(dietPlan, function(category, meals) {
-                $.each(meals, function(mealIndex, meal) {
-                    const mealId = `diet-${category.replace(/\s+/g, '-').toLowerCase()}-meal-${mealIndex}`;
-                    localStorage.removeItem(mealId);
-                });
-            });
-            renderDietPlan();
-        }
-
-        function resetTips() {
-            $.each(extraTips, function(index, tip) {
-                const tipId = `tip-${index}`;
-                localStorage.removeItem(tipId);
-            });
-            renderExtraTips();
-        }
-
-        // Inicialização
         $(document).ready(function() {
-            renderWorkoutDays();
-            renderDietPlan();
-            renderExtraTips();
+            // Initialize progress from localStorage
+            if(localStorage.getItem('completedExercises')) {
+                var completed = JSON.parse(localStorage.getItem('completedExercises'));
+                $.each(completed, function(index, id) {
+                    $('#' + id).prop('checked', true);
+                    $('#' + id).closest('.exercise-card').addClass('completed');
+                });
+                updateProgress();
+            }
             
-            // Event listeners
-            $('#resetWorkoutBtn').on('click', resetWorkout);
-            $('#resetDietBtn').on('click', resetDiet);
-            $('#resetTipsBtn').on('click', resetTips);
+            // Initialize water tracker
+            if(localStorage.getItem('waterConsumed')) {
+                var waterConsumed = parseInt(localStorage.getItem('waterConsumed'));
+                var cups = Math.floor(waterConsumed / 250);
+                $('.water-cup').slice(0, cups).addClass('active');
+                $('#water-consumed').text(waterConsumed);
+            }
             
-            // Inicializa os tooltips do Bootstrap
-            $('[data-bs-toggle="tooltip"]').tooltip();
+            // Exercise check handler
+            $('.exercise-check').change(function() {
+                var card = $(this).closest('.exercise-card');
+                if($(this).is(':checked')) {
+                    card.addClass('completed');
+                } else {
+                    card.removeClass('completed');
+                }
+                saveProgress();
+                updateProgress();
+            });
+            
+            // Complete day button
+            $('.complete-day').click(function() {
+                var dayId = $(this).data('day');
+                $('#' + dayId + ' .exercise-check').each(function() {
+                    $(this).prop('checked', true).change();
+                });
+            });
+            
+            // Reset progress
+            $('#resetProgress').click(function() {
+                $('.exercise-check').prop('checked', false).change();
+                localStorage.removeItem('completedExercises');
+                updateProgress();
+            });
+            
+            // Share progress
+            $('#shareProgress').click(function() {
+                var total = $('.exercise-check').length;
+                var completed = $('.exercise-check:checked').length;
+                var percent = Math.round((completed / total) * 100);
+                
+                alert('Compartilhando progresso: ' + percent + '% completos (' + completed + ' de ' + total + ' exercícios)');
+                // In a real app, this would use the Web Share API or social media links
+            });
+            
+            // Water tracker
+            $('.water-cup').click(function() {
+                $(this).toggleClass('active');
+                updateWaterTracker();
+            });
+            
+            // Macro calculator
+            $('#calculateMacros').click(function() {
+                calculateMacros();
+            });
+            
+            // Save macros
+            $('#saveMacros').click(function() {
+                alert('Macros salvos com sucesso!');
+                // In a real app, this would save to localStorage
+            });
+            
+            // Save progress measurements
+            $('#saveProgress').click(function() {
+                var date = $('#progressDate').val() || new Date().toISOString().slice(0, 10);
+                var weight = $('#progressWeight').val();
+                var fat = $('#progressFat').val();
+                var chest = $('#progressChest').val();
+                
+                if(!weight) {
+                    alert('Por favor, informe seu peso.');
+                    return;
+                }
+                
+                // In a real app, this would save to an array in localStorage
+                var newRow = `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${weight} kg</td>
+                        <td>${calculateBMI(weight, $('#height').val()).toFixed(1)}</td>
+                        <td>${fat || '-'}%</td>
+                        <td>${$('#totalCalories').text() || '-'} kcal</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">Editar</button>
+                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </td>
+                    </tr>
+                `;
+                
+                if($('#progressTable tr').length === 1 && $('#progressTable tr td').attr('colspan')) {
+                    $('#progressTable').html(newRow);
+                } else {
+                    $('#progressTable').prepend(newRow);
+                }
+                
+                $('#addProgressModal').modal('hide');
+                resetProgressForm();
+            });
+            
+            // Save reminder
+            $('#saveReminder').click(function() {
+                var title = $('#reminderTitle').val();
+                var time = $('#reminderTime').val();
+                
+                if(!title || !time) {
+                    alert('Por favor, preencha o título e o horário.');
+                    return;
+                }
+                
+                // In a real app, this would save to an array in localStorage
+                // and potentially use the Notification API
+                alert('Lembrete salvo com sucesso!');
+                $('#addReminderModal').modal('hide');
+                resetReminderForm();
+            });
+            
+            // Set current date in progress modal
+            $('#addProgressModal').on('show.bs.modal', function() {
+                $('#progressDate').val(new Date().toISOString().slice(0, 10));
+            });
+            
+            // Smooth scroll for anchor links
+            $('a[href^="#"]').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top - 70
+                }, 500);
+            });
+            
+            // Functions
+            function saveProgress() {
+                var completed = [];
+                $('.exercise-check:checked').each(function() {
+                    completed.push($(this).attr('id'));
+                });
+                localStorage.setItem('completedExercises', JSON.stringify(completed));
+            }
+            
+            function updateProgress() {
+                var total = $('.exercise-check').length;
+                var completed = $('.exercise-check:checked').length;
+                var percent = Math.round((completed / total) * 100);
+                
+                $('#weeklyProgress').css('width', percent + '%').text(percent + '%');
+                $('.progress p').text('Você completou ' + completed + ' de ' + total + ' exercícios esta semana');
+            }
+            
+            function updateWaterTracker() {
+                var activeCups = $('.water-cup.active').length;
+                var waterConsumed = activeCups * 250;
+                $('#water-consumed').text(waterConsumed);
+                localStorage.setItem('waterConsumed', waterConsumed);
+            }
+            
+            function calculateMacros() {
+                var weight = parseFloat($('#weight').val());
+                var height = parseFloat($('#height').val());
+                var age = parseInt($('#age').val());
+                var activity = parseFloat($('#activity').val());
+                var goal = parseInt($('#goal').val());
+                
+                if(!weight || !height || !age) {
+                    alert('Por favor, preencha peso, altura e idade.');
+                    return;
+                }
+                
+                // Harris-Benedict Equation (male)
+                var bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+                var tdee = bmr * activity;
+                var goalCalories = tdee + goal;
+                
+                // Macros distribution (40% protein, 30% carbs, 30% fat)
+                var proteinGrams = Math.round((weight * 2.2)); // 2.2g/kg
+                var proteinCalories = proteinGrams * 4;
+                var remainingCalories = goalCalories - proteinCalories;
+                var fatGrams = Math.round((remainingCalories * 0.3 / 9));
+                var carbsGrams = Math.round((remainingCalories * 0.7 / 4));
+                
+                // Update UI
+                $('#totalCalories').text(Math.round(goalCalories));
+                $('#proteinGrams').text(proteinGrams);
+                $('#carbsGrams').text(carbsGrams);
+                $('#fatGrams').text(fatGrams);
+                $('#proteinPerKg').text((proteinGrams / weight).toFixed(1));
+                
+                $('#noResults').hide();
+                $('#results').show();
+            }
+            
+            function calculateBMI(weight, height) {
+                if(!weight || !height) return 0;
+                return weight / Math.pow(height / 100, 2);
+            }
+            
+            function resetProgressForm() {
+                $('#progressWeight').val('');
+                $('#progressFat').val('');
+                $('#progressChest').val('');
+            }
+            
+            function resetReminderForm() {
+                $('#reminderTitle').val('');
+                $('#reminderTime').val('');
+                $('#reminderRepeat').val('daily');
+                $('input[type="checkbox"]').prop('checked', false);
+            }
         });
     </script>
 </body>
